@@ -5,19 +5,20 @@
 """
 
 import datetime as dt
+from typing import Optional, Union
 
-FORMAT = "%H:%M:%S"
-WEIGHT = 75  # Вес
-HEIGHT = 175  # Рост
-K_1 = 0.035  # Коэффициент для подсчета калорий
-K_2 = 0.029  # Коэффициент для подсчета калорий
-STEP_M = 0.65  # Длина шага в метрах
-
-
-storage_data = {}
+FORMAT: str = "%H:%M:%S"
+WEIGHT: int = 75  # Вес
+HEIGHT: int = 175  # Рост
+K_1: float = 0.035  # Коэффициент для подсчета калорий
+K_2: float = 0.029  # Коэффициент для подсчета калорий
+STEP_M: float = 0.65  # Длина шага в метрах
 
 
-def check_correct_data(data: tuple[str, int]) -> bool:
+storage_data: dict[dt.time, int] = {}
+
+
+def check_correct_data(data: tuple[Optional[str], int]) -> bool:
     """Проверка корректности полученного пакета."""
     length = len(data)
     if length != 2 or \
@@ -26,7 +27,7 @@ def check_correct_data(data: tuple[str, int]) -> bool:
     return True
 
 
-def check_correct_time(time: str) -> bool:
+def check_correct_time(time: dt.time) -> bool:
     """Проверка корректности параметра времени."""
     if storage_data and \
             time <= max(storage_data):
@@ -45,7 +46,7 @@ def get_distance(steps: int) -> float:
     return steps * STEP_M / 1000
 
 
-def get_spent_calories(dist: float, current_time: str) -> float:
+def get_spent_calories(dist: float, current_time: dt.time) -> float:
     """Получить значения потраченных калорий."""
     time = current_time.hour + current_time.minute / 60
     mean_speed = (dist / time)
@@ -65,7 +66,7 @@ def get_achievement(dist: float) -> str:
     return 'Отличный результат! Цель достигнута.'
 
 
-def show_message(time: str,
+def show_message(time:  Optional[dt.time],
                  steps: int,
                  dist: float,
                  calories: float,
@@ -80,7 +81,7 @@ def show_message(time: str,
         ''')
 
 
-def accept_package(data: tuple[str, int]) -> dict[str, int]:
+def accept_package(data: tuple[Optional[str], int]) -> Union[dict[dt.time, int], str]:
     """Обработать пакет данных."""
     if not check_correct_data(data):
         return 'Некорректный пакет'
