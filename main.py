@@ -1,3 +1,9 @@
+"""Модуль для фитнес трекера.
+
+Содержит в себе функции для валидации данных, подсчета калорий и расстояния,
+а также  и вывода сообщения о достигнутых успехах
+"""
+
 import datetime as dt
 
 FORMAT = "%H:%M:%S"
@@ -64,7 +70,7 @@ def show_message(time: str,
                  dist: float,
                  calories: float,
                  achiev: str) -> None:
-    """Вывести на экран результаты вычислений"""
+    """Вывести на экран результаты вычислений."""
     print(f'''
 Время: {time}.
 Количество шагов за сегодня: {steps}.
@@ -96,15 +102,16 @@ def accept_package(data: tuple[str, int]) -> dict[str, int]:
     return storage_data
 
 
-# Пример запуска
-package_0 = ('2:00:01', 505)
-package_1 = (None, 3211)
-package_2 = ('9:36:02', 15000)
-package_3 = ('9:36:02', 9000)
-package_4 = ('8:01:02', 7600)
+if __name__ == '__main__':
+    # Пример запуска
+    package_0 = ('2:00:01', 505)
+    package_1 = (None, 3211)
+    package_2 = ('9:36:02', 15000)
+    package_3 = ('9:36:02', 9000)
+    package_4 = ('8:01:02', 7600)
 
-accept_package(package_0)
-accept_package(package_1)
-accept_package(package_2)
-accept_package(package_3)
-accept_package(package_4)
+    accept_package(package_0)
+    accept_package(package_1)
+    accept_package(package_2)
+    accept_package(package_3)
+    accept_package(package_4)
