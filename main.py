@@ -81,14 +81,18 @@ def show_message(time:  Optional[dt.time],
         ''')
 
 
-def accept_package(data: tuple[Optional[str], int]) -> Union[dict[dt.time, int], str]:
+def accept_package(
+        data: tuple[Optional[str], int]
+        ) -> Union[dict[dt.time, int], str]:
     """Обработать пакет данных."""
     if not check_correct_data(data):
         return 'Некорректный пакет'
 
     time, steps = data
+    if time is None:
+        return 'Произошла ошибка'
     pack_time = dt.datetime.strptime(time, FORMAT).time()
-
+    
     if not check_correct_time(pack_time):
         return 'Некорректное значение времени'
 
